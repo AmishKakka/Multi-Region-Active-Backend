@@ -24,12 +24,12 @@
             <label class="input-label">Number of Requests (1-50)</label>
             <div class="requests-input-group">
                 <button class="qty-btn minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-</button>
-                <input type="number" min="1" max="50" value="15" readonly>
+                <input id="num_requests" type="number" min="1" max="50" value="15">
                 <button class="qty-btn plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+</button>
             </div>
 
             <div class="button-wrapper">
-                <button class="simulate-button">
+                <button class="simulate-button" onclick="runSimulation()">
                     Start
                 </button>
             </div>
@@ -84,6 +84,6 @@
             </div>
         </div>
     </div>
-
+    <script src="path_to_your/main.js"></script>
 </div>
 </html>
