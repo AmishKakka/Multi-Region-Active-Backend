@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Multi-Region Active Backend</title>
+    <link rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+    <h1 style="text-align: center; font-size: 24px; ">
+        Multi-Region Active Backend
+    </h1>
+    
+</body>
+
+<div class="container">
+
+    <div class="left-section">
+        <h2>Simulate Requests to S3 Database</h2>
+        <div class="layout">
+            <label class="input-label">Number of Requests (1-50)</label>
+            <div class="requests-input-group">
+                <button class="qty-btn minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-</button>
+                <input type="number" min="1" max="50" value="15" readonly>
+                <button class="qty-btn plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+</button>
+            </div>
+
+            <div class="button-wrapper">
+                <button class="simulate-button">
+                    Start
+                </button>
+            </div>
+        </div>
+
+        <div class="table-layout">
+            <table class="requests-table" style="text-align: center;">
+                <thead>
+                    <tr>
+                        <th>Region</th>
+                        <th>Number of Requests</th>
+                        <th>Latency (ms)</th>
+                    </tr>
+                </thead>
+                <tbody id="requests-tbody">
+                    <tr>
+                        <td>us-east-1</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>us-west-2</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="right-section">
+        <div class="search-layout">
+            <div class="input-wrapper">
+                <h2>Search the S3 database ...</h2>
+                <select class="search-select">
+                    <option value="" disabled selected>Select query type...</option>
+                    <option value="user_id">User ID</option>
+                    <option value="transaction">Transaction Hash</option>
+                    <option value="log_entry">System Log Entry</option>
+                    <option value="region">Region Data</option>
+                </select>
+
+                <label class="input-label">Number of Results (1-15)</label>
+                <div class="number-input-group">
+                    <button class="qty-btn minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-</button>
+                    <input type="number" min="1" max="15" value="5" readonly>
+                    <button class="qty-btn plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+</button>
+                </div>
+            </div>
+            <div class="button-wrapper">
+                <button class="search-button">Search</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+</html>
