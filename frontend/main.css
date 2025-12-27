@@ -44,11 +44,6 @@ body > h1 {
 /* --- Left Section --- */
 .left-section {
     flex: 0.75;
-    /* background-image: 
-        linear-gradient(rgba(0, 255, 238, 0.8), rgba(255, 255, 255, 0.9)),
-        url('s3.png'); 
-    background-size: cover;
-    background-position: center; */
     color: #0a0707;
     padding: 40px;
     box-sizing: border-box;
@@ -87,7 +82,7 @@ body > h1 {
 
 .requests-table td {
     padding: 15px;
-    border-bottom: 1.5px solid rgba(82, 40, 40, 0.2);
+    border-bottom: 2px solid rgba(82, 40, 40, 0.2);
     vertical-align: middle;
 }
 

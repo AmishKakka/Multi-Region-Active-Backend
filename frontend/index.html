@@ -41,22 +41,34 @@
                     <tr>
                         <th>Region</th>
                         <th>Number of Requests</th>
+                        <th>Incoming Requests</th>
                         <th>Latency (ms)</th>
                     </tr>
                 </thead>
                 <tbody id="requests-tbody">
                     <tr>
-                        <td>us-east-1</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td>us-east-2</td>
+                        <td id="r1_requests">0</td>
+                        <td id="r1_incoming_requests">0</td>
+                        <td id="r1_latency">0</td>
                     </tr>
                     <tr>
-                        <td>us-west-2</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td>us-west-1</td>
+                        <td id="r2_requests">0</td>
+                        <td id="r2_incoming_requests">0</td>
+                        <td id="r2_latency">0</td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="info-box">
+            <p>
+                This simulation sends requests to two different AWS regions (us-east-2 and us-west-1) to demonstrate the multi-region active backend architecture.
+            </p>
+            <!-- <button id="stop-simulation-btn">
+                Stop Simulation
+            </button> -->
         </div>
     </div>
 
@@ -66,10 +78,10 @@
                 <h2>Search the S3 database ...</h2>
                 <select class="search-select">
                     <option value="" disabled selected>Select query type...</option>
-                    <option value="user_id">User ID</option>
-                    <option value="transaction">Transaction Hash</option>
-                    <option value="log_entry">System Log Entry</option>
-                    <option value="region">Region Data</option>
+                    <option value="cars">Cars</option>
+                    <option value="dogs">Dogs</option>
+                    <option value="flowers">flowers</option>
+                    <option value="horses">horses</option>
                 </select>
 
                 <label class="input-label">Number of Results (1-15)</label>
