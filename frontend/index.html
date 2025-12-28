@@ -76,23 +76,23 @@
         <div class="search-layout">
             <div class="input-wrapper">
                 <h2>Search the S3 database ...</h2>
-                <select class="search-select">
+                <select class="search-select" id="target">
                     <option value="" disabled selected>Select query type...</option>
                     <option value="cars">Cars</option>
                     <option value="dogs">Dogs</option>
-                    <option value="flowers">flowers</option>
-                    <option value="horses">horses</option>
+                    <option value="flowers">Flowers</option>
+                    <option value="horses">Horses</option>
                 </select>
 
                 <label class="input-label">Number of Results (1-15)</label>
                 <div class="number-input-group">
                     <button class="qty-btn minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-</button>
-                    <input type="number" min="1" max="15" value="5" readonly>
+                    <input id="n_output" type="number" min="1" max="15" value="5" readonly>
                     <button class="qty-btn plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+</button>
                 </div>
             </div>
             <div class="button-wrapper">
-                <button class="search-button">Search</button>
+                <button class="search-button" onclick="runQuery()">Search</button>
             </div>
         </div>
     </div>
