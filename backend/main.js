@@ -57,6 +57,8 @@ async function runSimulation() {
 async function runQuery() {
     document.getElementById('search-button').innerHTML = "Searching...";
     document.getElementById('search-button').disabled = true;
+    const listContainer = document.getElementById('image-list');
+
     targetQuery = document.getElementById('target').value;
     numResults = document.getElementById('n_output').value;
     if (targetQuery === "") {
@@ -67,6 +69,7 @@ async function runQuery() {
     console.log(`Querying for ${targetQuery} with ${numResults} results.`);
 
     try {
+        listContainer.innerHTML = '<li style="text-align:center; color:#888;">Fetching images...</li>';
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -77,17 +80,53 @@ async function runQuery() {
              })
         });
         
+        // Handle the response
         const data = await response.json();
         document.getElementById('search-button').disabled = false;
         document.getElementById('search-button').innerHTML = "Search";
         console.log("Query Result:", data);
+
+        // Display image files and their respective URLs
+        img_files_dict = data.response.img_files;
+        listContainer.innerHTML = '';
+        img_files_dict.forEach((img) => {
+            const li = document.createElement('li');
+            li.textContent = `${img['key'].split('/').pop()}`;
+            li.onclick = function() { 
+                displayImage(img['url']); 
+            };
+            listContainer.appendChild(li);
+        });
+        if (listContainer.firstChild) {
+            listContainer.firstChild.click();
+        }
+
         alert(data.message);
     } catch (error) {
         console.error("Error:", error);
+        listContainer.innerHTML = '<li style="color:red; padding:15px;">Error loading images.</li>';
         alert(error);
     }
 }
 
-async function displayImage() {
-    
+
+async function displayImage(img_url) {
+    const imgElement = document.getElementById('displayed-image');
+    const placeholder = document.getElementById('placeholder-text');
+    const listContainer = document.getElementById('image-list');
+
+    // Update the image source
+    imgElement.src = img_url;
+    imgElement.alt = "Selected Image";
+    imgElement.style.display = 'block'; 
+    if(placeholder) placeholder.style.display = 'none';
+
+    Array.from(listContainer.children).forEach(child => {
+        child.style.backgroundColor = '';
+        child.style.fontWeight = 'normal';
+    });
+
+    selectedLi.style.backgroundColor = '#eef2f5';
+    selectedLi.style.fontWeight = '600';
+    selectedLi.style.color = '#009bff';
 }
