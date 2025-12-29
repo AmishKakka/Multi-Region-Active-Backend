@@ -21,3 +21,7 @@ Now, people are **accessing my website to look up for data from multiple regions
 6. User in London types ```myapp.com```.
 
 7. Route 53: "Ireland is closest but Unhealthy. What's next best? Virginia." -> **Routes to Virginia**.
+
+#
+## Architecture
+![Work flow](./images/architecture.png )
