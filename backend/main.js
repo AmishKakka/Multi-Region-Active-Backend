@@ -5,6 +5,8 @@ const apiUrl = "";
 
 
 async function runSimulation() {
+    document.getElementById('simulate-button').innerHTML = "Simulating...";
+    document.getElementById('simulate-button').disabled = true;
     const numInput = document.getElementById('num_requests').value;
     const count = parseInt(numInput);
     
@@ -35,6 +37,8 @@ async function runSimulation() {
         
         const data = await response.json();
         console.log("Simulation Result:", data);
+        document.getElementById('simulate-button').disabled = false;
+        document.getElementById('simulate-button').innerHTML = "Start";
         alert(data.message);
     } catch (error) {
         console.error("Error:", error);
@@ -51,8 +55,15 @@ async function runSimulation() {
 
 
 async function runQuery() {
+    document.getElementById('search-button').innerHTML = "Searching...";
+    document.getElementById('search-button').disabled = true;
     targetQuery = document.getElementById('target').value;
     numResults = document.getElementById('n_output').value;
+    if (targetQuery === "") {
+        alert("Please enter a valid target query.");
+        document.getElementById('search-button').innerHTML = "Search";
+        return;
+    }
     console.log(`Querying for ${targetQuery} with ${numResults} results.`);
 
     try {
@@ -67,10 +78,16 @@ async function runQuery() {
         });
         
         const data = await response.json();
+        document.getElementById('search-button').disabled = false;
+        document.getElementById('search-button').innerHTML = "Search";
         console.log("Query Result:", data);
         alert(data.message);
     } catch (error) {
         console.error("Error:", error);
         alert(error);
     }
+}
+
+async function displayImage() {
+    
 }
