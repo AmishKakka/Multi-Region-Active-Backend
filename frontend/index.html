@@ -29,7 +29,7 @@
             </div>
 
             <div class="button-wrapper">
-                <button class="simulate-button" onclick="runSimulation()">
+                <button class="simulate-button" id="simulate-button" onclick="runSimulation()">
                     Start
                 </button>
             </div>
@@ -66,9 +66,6 @@
             <p>
                 This simulation sends requests to two different AWS regions (us-east-2 and us-west-1) to demonstrate the multi-region active backend architecture.
             </p>
-            <!-- <button id="stop-simulation-btn">
-                Stop Simulation
-            </button> -->
         </div>
     </div>
 
@@ -92,7 +89,36 @@
                 </div>
             </div>
             <div class="button-wrapper">
-                <button class="search-button" onclick="runQuery()">Search</button>
+                <button class="search-button" id="search-button" onclick="runQuery()">Search</button>
+            </div>
+        </div>
+
+        <div class="view-image-layout"> 
+            <div class="img-table-layout">
+                <div class="img-list-container">
+                    <div class="img-table-header">
+                        <h3>Browse Images</h3>
+                    </div>
+                    <div class="scroll-img-files" id="img-files">
+                        <ul id="image-list" class="image-list">
+                            <li>List Item 1</li>
+                            <li>List Item 2</li>
+                            <li>List Item 3</li>
+                            <li>List Item 4</li>
+                            <li>List Item 5</li>
+                            <li>List Item 6</li>
+                            <li>List Item 1</li>
+                            <li>List Item 2</li>
+                            <li>List Item 3</li>
+                            <li>List Item 4</li>
+                            <li>List Item 5</li>
+                            <li>List Item 6</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="selected-img" id="selected-img">
+                    <img id="displayed-image" src="" alt="Select an image from the list">
+                </div>
             </div>
         </div>
     </div>
