@@ -160,6 +160,105 @@ body > h1 {
     transform: scale(0.95);
 }
 
+/* --- Flash Card Component --- */
+.flashcard-container {
+    margin-top: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 160px; /* Ensures card doesn't jump size */
+    border: 1px solid #e1e1e1;
+    transition: transform 0.2s;
+}
+
+.flashcard-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.flashcard-header {
+    margin-bottom: 10px;
+}
+
+.badge {
+    background-color: #eef2f5;
+    color: var(--accent-color);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.flashcard-body p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+    min-height: 60px;
+}
+
+/* Navigation Controls */
+.flashcard-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #999;
+    padding: 5px 10px;
+    transition: color 0.2s;
+}
+
+.nav-btn:hover {
+    color: var(--accent-color);
+    background-color: #f0f7ff;
+    border-radius: 5px;
+}
+
+.stop-button {
+    width: auto; 
+    height: 50px; 
+    border-radius: 8px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0, 155, 255, 0.3);
+}
+
+.stop-button:hover {
+    background-color: var(--accent-hover);
+    box-shadow: 0 8px 20px rgba(0, 155, 255, 0.4);
+}
+
+.stop-button:disabled {
+  background-color: #cccccc; 
+  color: #666666; 
+  cursor: not-allowed; 
+  opacity: 0.6; 
+}
+
+.stop-button:active {
+    transform: scale(0.95);
+}
+
 
 /* --- Right Section --- */
 .right-section {
@@ -215,8 +314,18 @@ h3 {
 
 .button-wrapper {
     flex: 1;
+    flex-direction: column;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stop-button-wrapper {
+    flex: 1;
+    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 select.search-select {
@@ -293,7 +402,9 @@ select.search-select:focus {
 .search-button {
     width: 115px; 
     height: 50px; 
+    box-sizing: border-box;
     border-radius: 8px;
+    border-bottom-width: 10px;
     background-color: var(--accent-color);
     color: white;
     border: none;
@@ -318,6 +429,15 @@ select.search-select:focus {
 .search-button:active {
     transform: scale(0.95);
 }
+
+.search-latency {
+    margin-bottom: 5px;
+    box-sizing: border-box;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 600;
+}
+
 
 /* --- Image Viewer Layout --- */
 .img-table-layout {

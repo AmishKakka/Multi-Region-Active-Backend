@@ -21,10 +21,10 @@
     <div class="left-section">
         <h2>Simulate Requests to S3 Database</h2>
         <div class="layout">
-            <label class="input-label">Number of Requests (1-50)</label>
+            <label class="input-label">Max. Number of Requests (10-200)</label>
             <div class="requests-input-group">
                 <button class="qty-btn minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-</button>
-                <input id="num_requests" type="number" min="1" max="50" value="15">
+                <input id="num_requests" type="number" min="10" max="200" value="25">
                 <button class="qty-btn plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+</button>
             </div>
 
@@ -41,7 +41,7 @@
                     <tr>
                         <th>Region</th>
                         <th>Number of Requests</th>
-                        <th>Incoming Requests</th>
+                        <th>Incoming Request size</th>
                         <th>Latency (ms)</th>
                     </tr>
                 </thead>
@@ -62,10 +62,28 @@
             </table>
         </div>
 
-        <div class="info-box">
-            <p>
-                This simulation sends requests to two different AWS regions (us-east-2 and us-west-1) to demonstrate the multi-region active backend architecture.
-            </p>
+        <div class="flashcard-container">
+            <div class="flashcard-header">
+                <span class="badge">What this does?</span>
+            </div>
+            
+            <div class="flashcard-body">
+                <p id="flashcard-text">
+                    This simulation sends requests to two different AWS regions (us-east-2 and us-west-1). You select the maximum number of requests to send (between 10 and 200).
+                </p>
+            </div>
+
+            <div class="flashcard-controls">
+                <button class="nav-btn" onclick="prevCard()">&#8592;</button>
+                <button class="nav-btn" onclick="nextCard()">&#8594;</button>
+            </div>
+        </div>
+
+        <div class="stop-button-wrapper">
+            <button class="stop-button" id="stop-button" disabled>
+                Stop Simulation
+            </button>
+            
         </div>
     </div>
 
@@ -81,15 +99,16 @@
                     <option value="horses">Horses</option>
                 </select>
 
-                <label class="input-label">Number of Results (1-15)</label>
+                <label class="input-label">Number of Results (1-200)</label>
                 <div class="number-input-group">
                     <button class="qty-btn minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-</button>
-                    <input id="n_output" type="number" min="1" max="15" value="5" readonly>
+                    <input id="n_output" type="number" min="1" max="200" value="20">
                     <button class="qty-btn plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+</button>
                 </div>
             </div>
             <div class="button-wrapper">
                 <button class="search-button" id="search-button" onclick="runQuery()">Search</button>
+                <h5 class="search-latency" id="search-latency" style="color:#666;">Latency: 0ms</h5>
             </div>
         </div>
 
