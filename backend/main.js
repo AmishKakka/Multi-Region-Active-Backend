@@ -3,14 +3,14 @@
 // Replace with your real Lambda API URL
 const apiUrl = "";
 
-
+let simulationTimerId = null; 
+let isSimulationRunning = false;
 const flashcards = [
     "This simulation sends requests to two different AWS regions (us-east-2 and us-west-1). You select the maximum number of requests to send (between 10 and 200) to each region.",
     "Route 53 uses Latency-Based Routing to direct user traffic. It automatically routes you to the AWS region that provides the fastest response time.",
     "If one region goes offline, Route 53 Health Checks will detect the failure and automatically redirect all traffic to the healthy region, ensuring zero downtime.",
     "Both regions are Active-Active. This means they both handle traffic simultaneously, unlike a disaster recovery setup where one sits idle."
 ];
-
 let currentCardIndex = 0;
 
 function updateCard() {
@@ -34,16 +34,37 @@ function prevCard() {
 }
 
 
+function stopSimulation() {
+    isSimulationRunning = false;
+    if (simulationTimerId) {
+        clearTimeout(simulationTimerId);
+        simulationTimerId = null;
+    }
+    
+    // Reset buttons
+    const simBtn = document.getElementById('simulate-button');
+    const stopBtn = document.getElementById('stop-button');
+    if(simBtn) {
+        simBtn.disabled = false;
+        simBtn.innerHTML = "Start";
+    }
+    if(stopBtn) stopBtn.disabled = true;
+    console.log("Simulation Stopped.");
+}
+
 async function runSimulation() {
+    if (isSimulationRunning) return; 
+    isSimulationRunning = true;
+
     document.getElementById('simulate-button').innerHTML = "Simulating...";
-    document.getElementById('simulate-button').disabled = true;
+    const simButton = document.getElementById('simulate-button');
     const stopButton = document.getElementById('stop-button');
     const numInput = document.getElementById('num_requests').value;
     const count = parseInt(numInput);
     
     // Input validation
-    if (count > 200) {
-        alert("Please enter a number less than or equal to 200.");
+    if (count > 2000) {
+        alert("Please enter a number less than or equal to 2000.");
         return;
     }
     if (count < 10) {
@@ -51,42 +72,42 @@ async function runSimulation() {
         return;
     }
 
-    // Set the requests count
-    document.getElementById('r1_requests').innerHTML = `${count}`;
-    document.getElementById('r2_requests').innerHTML = `${count}`;
+    // Enabling stop button and disabling simulation button
+    simButton.disabled = true;
+    stopButton.disabled = false;
 
-    // Sending query to 'simulate-s3-hits' Lambda function
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                num: count,
-                mode: "simulation"
-             })
-        });
-        
-        stopButton.disabled = false;
-        const data = await response.json();
-        while (stopButton.click()) {
-            console.log("Simulation Result:", data);
+    let requestsSent = 0;
+    async function sendNextRequest() {
+        if (!isSimulationRunning) return;
+        requestsSent++;
+
+        document.getElementById('r1_requests').innerHTML = `${requestsSent}`;
+        document.getElementById('r2_requests').innerHTML = `${requestsSent}`;
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    num: count,
+                    mode: "simulation"
+                })
+            });
+            const data = await response.json();
+            document.getElementById('r1_incoming_requests').innerHTML = `${data.response.num}`;
+            document.getElementById('r2_incoming_requests').innerHTML = `${data.response.num}`;
+            document.getElementById('r1_latency').innerHTML = `${Math.trunc(data.latency*1000)}ms`;
+            document.getElementById('r2_latency').innerHTML = `${Math.trunc(data.latency*1000)}ms`;
+            console.log("Simulation Request Result:", data);
+        } catch (error) {
+            console.error("Error:", error);
         }
-        
-        document.getElementById('simulate-button').disabled = false;
-        document.getElementById('simulate-button').innerHTML = "Start";
-        stopButton.disabled = true;
-        alert(data.message);
-    } catch (error) {
-        console.error("Error:", error);
-        alert(error);
-    }
 
-    // Live update the incoming requests
-    for (let i = 1; i <= count; i++) {
-        document.getElementById('r1_incoming_requests').innerHTML = `${i}`;
-        document.getElementById('r2_incoming_requests').innerHTML = `${i}`;
-        await new Promise(resolve => setTimeout(resolve, 500));
+        const randomDelay = Math.floor(Math.random() * (2000 - 500 + 1) + 500);
+        if (isSimulationRunning) {
+            simulationTimerId = setTimeout(sendNextRequest, randomDelay);
+        }
     }
+    sendNextRequest();
 }
 
 

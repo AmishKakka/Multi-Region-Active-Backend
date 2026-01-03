@@ -21,10 +21,10 @@
     <div class="left-section">
         <h2>Simulate Requests to S3 Database</h2>
         <div class="layout">
-            <label class="input-label">Max. Number of Requests (10-200)</label>
+            <label class="input-label">Max. Request size (10-2000)</label>
             <div class="requests-input-group">
                 <button class="qty-btn minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-</button>
-                <input id="num_requests" type="number" min="10" max="200" value="25">
+                <input id="num_requests" type="number" min="10" max="2000" value="100">
                 <button class="qty-btn plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+</button>
             </div>
 
@@ -80,7 +80,7 @@
         </div>
 
         <div class="stop-button-wrapper">
-            <button class="stop-button" id="stop-button" disabled>
+            <button class="stop-button" id="stop-button" disabled onclick="stopSimulation()">
                 Stop Simulation
             </button>
             
