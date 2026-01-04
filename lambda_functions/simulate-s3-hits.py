@@ -27,7 +27,7 @@ def lambda_handler(event, context):
     
     st = time.time()
     response = l_event.invoke(
-        FunctionName='arn:aws:lambda:us-east-2:998751129371:function:hitting-s3-database',
+        FunctionName='your-lambda-function-name',  # Replace with your Lambda function name
         Payload=json.dumps(input)
     )
     et = time.time()
