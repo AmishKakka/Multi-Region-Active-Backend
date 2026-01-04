@@ -1,7 +1,8 @@
 // Handle requests and communicate with Lambda functions
+import { STSClient, GetCallerIdentityCommand } from "@aws-sdk/client-sts";
 
 // Replace with your real Lambda API URL
-const apiUrl = "";
+const apiUrl = ";
 
 let simulationTimerId = null; 
 let isSimulationRunning = false;
@@ -31,6 +32,28 @@ function nextCard() {
 function prevCard() {
     currentCardIndex = (currentCardIndex - 1 + flashcards.length) % flashcards.length;
     updateCard();
+}
+
+
+async function isRegionAvailable(region) {
+  const client = new STSClient({ 
+    region: region,
+    maxAttempts: 1, 
+    requestHandler: {
+        connectionTimeout: 2000, 
+        socketTimeout: 2000
+    }
+  });
+
+  try {
+    await client.send(new GetCallerIdentityCommand({}));
+    document.getElementById(`${region}-status`).innerHTML = `${region}: <span style="color:green;">Active</span>`;
+    return true; 
+  } catch (error) {
+    document.getElementById(`${region}-status`).innerHTML = `${region}: <span style="color:red;">Inactive</span>`;
+    console.warn(`Region ${region} check failed:`, error.message);
+    return false;
+  }
 }
 
 

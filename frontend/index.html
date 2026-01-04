@@ -21,10 +21,10 @@
     <div class="left-section">
         <h2>Simulate Requests to S3 Database</h2>
         <div class="layout">
-            <label class="input-label">Max. Request size (10-2000)</label>
+            <label class="input-label">Max. Request size (10-200)</label>
             <div class="requests-input-group">
                 <button class="qty-btn minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-</button>
-                <input id="num_requests" type="number" min="10" max="2000" value="100">
+                <input id="num_requests" type="number" min="10" max="200" value="100">
                 <button class="qty-btn plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+</button>
             </div>
 
@@ -83,7 +83,14 @@
             <button class="stop-button" id="stop-button" disabled onclick="stopSimulation()">
                 Stop Simulation
             </button>
-            
+        </div>
+
+        <div class="region-status">
+            <h3>Region Status</h3>
+            <ul>
+                <li id="us-east-2-status" onload="isRegionAvailable('us-east-2')">us-east-2: <span style="color:green;">Active</span></li>
+                <li id="us-west-1-status" onload="isRegionAvailable('us-west-1')">us-west-1: <span style="color:green;">Active</span></li>
+            </ul> 
         </div>
     </div>
 
@@ -133,6 +140,6 @@
             </div>
         </div>
     </div>
-    <script src="path_to_your/main.js"></script>
+    <script src="/main.js"></script>
 </div>
 </html>
